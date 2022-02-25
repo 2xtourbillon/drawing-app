@@ -1,3 +1,4 @@
+from cgitb import text
 import tkinter as tk
 import tkinter.ttk as ttk
 
@@ -15,6 +16,33 @@ class FreeHandDrawing(tk.Tk):
         self.tag = ['tag', '0'] 
         self._create_widgets()
 
+    
+    def _create_widget(self):
+        """function to create widgets"""
+        topframe = tk.Frame(self)
+        topframe.grid(row=0, column=0, pady=10)
+
+        #combo box with color options
+        self.col_select = tk.StringVar()
+        colorList = ttk.Combobox(topframe, textvariable=self.col_select, 
+                                 value=['Black', 'Green', 'Brown', 'Red', 'Yellow'], 
+                                 state='readonly',
+                                 width=10)
+        colorList.current(0)
+        self.option_add('*TCombobox*Listbox.selectBackground', 'skyblue')
+        colorList.bind('<<ComboboxSelected>>', self._change_color)
+        colorList.grid(row=0, column=0, padx=5)
+
+        # thickness
+        self.t_select = tk.StringVar()
+        tList = ttk.Combobox(topframe, textvariable=self.t_select,
+                             value=[1, 2, 3, 4, 5, 6, 7], 
+                             state='readonly',
+                             width=3)
+
+        tList.current(0)
+        tList.bind('<<ComboboxSelected>>', self._change_thickness)
+        tList.grid(row=0, column=1, padx=5)
 
 
 FreeHandDrawing().mainloop()
