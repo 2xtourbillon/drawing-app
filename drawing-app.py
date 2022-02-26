@@ -17,7 +17,7 @@ class FreeHandDrawing(tk.Tk):
         self._create_widgets()
 
     
-    def _create_widget(self):
+    def _create_widgets(self):
         """function to create widgets"""
         topframe = tk.Frame(self)
         topframe.grid(row=0, column=0, pady=10)
@@ -55,8 +55,8 @@ class FreeHandDrawing(tk.Tk):
         # adding canvas for drawing
         self.canvas = tk.Canvas(self, width=500, height=500, bg='white')
         self.canvas.grid(row=1, column=0, padx=10, pady=(0, 10))
-        self.canvas.bind('<<ButtonRelease-1>>', self._on_release)
-        self.canvas.bind('<<B1-Motion>>', self._on_movement) #B1 is the left mouse button
+        # self.canvas.bind('<<ButtonRelease-1>>', self._on_release)
+        # self.canvas.bind('<<B1-Motion>>', self._on_movement) #B1 is the left mouse button
 
     def _change_color(self, event=None):
         self.color = self.col_select.get()
@@ -69,7 +69,11 @@ class FreeHandDrawing(tk.Tk):
         self.canvas.delete('all')
         self.tag = ['tag', '0']
 
-    
+    def _undo(self):
+        cur_tag = int(self.tag[1])
+        if cur_tag >= 1:
+            self.canvas.delete('tag' + str(cur_tag - 1))
+            self.tag = ['tag', str(cur_tag - 1)]
 
 
 
