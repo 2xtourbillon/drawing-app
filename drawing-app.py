@@ -55,8 +55,8 @@ class FreeHandDrawing(tk.Tk):
         # adding canvas for drawing
         self.canvas = tk.Canvas(self, width=500, height=500, bg='white')
         self.canvas.grid(row=1, column=0, padx=10, pady=(0, 10))
-        # self.canvas.bind('<<ButtonRelease-1>>', self._on_release)
-        # self.canvas.bind('<<B1-Motion>>', self._on_movement) #B1 is the left mouse button
+        self.canvas.bind('<<ButtonRelease-1>>', self._on_release)
+        self.canvas.bind('<<B1-Motion>>', self._on_movement) #B1 is the left mouse button
 
     def _change_color(self, event=None):
         self.color = self.col_select.get()
@@ -75,7 +75,18 @@ class FreeHandDrawing(tk.Tk):
             self.canvas.delete('tag' + str(cur_tag - 1))
             self.tag = ['tag', str(cur_tag - 1)]
 
+    def _on_movement(self, event):
+        tag = ''.join(self.tag)
+        x1, y1 = (event.x - self.thickness), (event.y - self.thickness)
+        x2, y2 = (event.x + self.thickness), (event.y + self.thickness)
+        event.widget.create_oval(x1, y1, x2, y2, width=0, fill=self.color, tag=tag)
+        if self._xold is not None and self._yold is not None:
+            self.canvas.create_oval(x1, y1, x2, y2, width=0, fill=self.color, tag=tag)
+            self.canvas.create_line(self._xold, self._yold, event.x, event.y, smooth=True, width=2*self.thickness, fill=self.color, tag=tag)
+        self._xold = event.x
+        self._yold = event.y
 
 
+    
 
 FreeHandDrawing().mainloop()
