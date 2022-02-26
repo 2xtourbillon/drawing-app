@@ -57,7 +57,12 @@ class FreeHandDrawing(tk.Tk):
         self.canvas.grid(row=1, column=0, padx=10, pady=(0, 10))
         self.canvas.bind('<<ButtonRelease-1>>', self._on_release)
         self.canvas.bind('<<B1-Motion>>', self._on_movement) #B1 is the left mouse button
-        
+
+    def _change_color(self, event=None):
+        self.color = self.col_select.get()
+
+    def _change_thicknes(self, event=None):
+        self.thickness = int(self.t_select.get())
 
 
 
