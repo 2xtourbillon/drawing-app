@@ -52,5 +52,14 @@ class FreeHandDrawing(tk.Tk):
         tk.Button(topframe, text='Clear', bg='brown', fg='white', activebackground='brown4', activeforeground='white',
                   command=self._clear).grid(row=0, column=3, padx=5)
 
+        # adding canvas for drawing
+        self.canvas = tk.Canvas(self, width=500, height=500, bg='white')
+        self.canvas.grid(row=1, column=0, padx=10, pady=(0, 10))
+        self.canvas.bind('<<ButtonRelease-1>>', self._on_release)
+        self.canvas.bind('<<B1-Motion>>', self._on_movement) #B1 is the left mouse button
+        
+
+
+
 
 FreeHandDrawing().mainloop()
