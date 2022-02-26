@@ -22,7 +22,7 @@ class FreeHandDrawing(tk.Tk):
         topframe = tk.Frame(self)
         topframe.grid(row=0, column=0, pady=10)
 
-        #combo box with color options
+        # combo box with color options
         self.col_select = tk.StringVar()
         colorList = ttk.Combobox(topframe, textvariable=self.col_select, 
                                  value=['Black', 'Green', 'Brown', 'Red', 'Yellow'], 
@@ -43,6 +43,14 @@ class FreeHandDrawing(tk.Tk):
         tList.current(0)
         tList.bind('<<ComboboxSelected>>', self._change_thickness)
         tList.grid(row=0, column=1, padx=5)
+
+        # UNDO button
+        tk.Button(topframe, text='Undo', bg='blue', fg='white', activebackground='blue4', activeforeground='white',
+                  command=self._undo).grid(row=0, column=2, padx=5)
+        
+        # CLEAR button
+        tk.Button(topframe, text='Clear', bg='brown', fg='white', activebackground='brown4', activeforeground='white',
+                  command=self._clear).grid(row=0, column=3, padx=5)
 
 
 FreeHandDrawing().mainloop()
