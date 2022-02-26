@@ -4,7 +4,7 @@ import tkinter.ttk as ttk
 
 class FreeHandDrawing(tk.Tk):
     """initialing the main window"""
-    def __init_(self):
+    def __init__(self):
         super().__init__()
         self.title('Free Hand Drawing Tool')
         self._xold = None #coords
@@ -61,7 +61,7 @@ class FreeHandDrawing(tk.Tk):
     def _change_color(self, event=None):
         self.color = self.col_select.get()
 
-    def _change_thicknes(self, event=None):
+    def _change_thickness(self, event=None):
         self.thickness = int(self.t_select.get())
 
     def _clear(self):
@@ -87,6 +87,9 @@ class FreeHandDrawing(tk.Tk):
         self._yold = event.y
 
 
-    
+    def _on_release(self, event):
+        self._xold = None
+        self._yold = None
+        self.tag = ['tag', str(int(self.tag[1])+1)]
 
 FreeHandDrawing().mainloop()
