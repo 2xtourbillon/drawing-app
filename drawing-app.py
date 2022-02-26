@@ -64,6 +64,13 @@ class FreeHandDrawing(tk.Tk):
     def _change_thicknes(self, event=None):
         self.thickness = int(self.t_select.get())
 
+    def _clear(self):
+        # delete the canvas and tag=0
+        self.canvas.delete('all')
+        self.tag = ['tag', '0']
+
+    
+
 
 
 
